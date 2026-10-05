@@ -96,7 +96,7 @@ const menuItems = [
     name: "Refrigerante Lata 350ml",
     category: "bebidas",
     price: 6.5,
-    description: "Coca-Cola, Coca Zero, Guaraná Antarctica ou Sprite.",
+    description: "Coca-Cola, Coca Zero, Guaraná Antarctica, Fanta ou Sprite.",
     image: "./imagens/bebida3.jpeg",
   },
   {
@@ -206,6 +206,9 @@ function renderMenu(items) {
     const card = document.createElement("div");
     card.classList.add("card");
 
+    const cartItem = cart.find((c) => c.id === item.id);
+    const qty = cartItem ? cartItem.quantity : 0;
+
     card.innerHTML = `
       <img src="${item.image}" alt="${item.name}" class="card-img" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e8f0/1e293b?text=Foto+do+Prato';">
       <div class="card-body">
@@ -213,9 +216,11 @@ function renderMenu(items) {
         <p class="card-desc">${item.description}</p>
         <div class="card-footer">
           <span class="card-price">R$ ${item.price.toFixed(2).replace(".", ",")}</span>
-          <button class="add-btn" onclick="addToCart(${item.id})">
-            <i class="fa-solid fa-plus"></i>
-          </button>
+          <div class="qty-selector">
+            <button class="qty-btn btn-minus" onclick="changeQuantity(${item.id}, -1)">-</button>
+            <span class="qty-value" id="qty-${item.id}">${qty}</span>
+            <button class="qty-btn btn-plus" onclick="changeQuantity(${item.id}, 1)">+</button>
+          </div>
         </div>
       </div>
     `;
@@ -268,17 +273,33 @@ function addToCart(id) {
   updateCartUI();
 }
 
-function changeQuantity(id, amount) {
-  const itemIndex = cart.findIndex((item) => item.id === id);
+function changeQuantity(itemId, change) {
+  let cartItem = cart.find((item) => item.id === itemId);
+  const menuItem = menuItems.find((item) => item.id === itemId);
 
-  if (itemIndex > -1) {
-    cart[itemIndex].quantity += amount;
-    if (cart[itemIndex].quantity <= 0) {
-      cart.splice(itemIndex, 1);
+  if (change > 0) {
+    addToCart(itemId);
+    if (menuItem) {
+      showToast(`Adicionado: 1x ${menuItem.name}`);
+    }
+  } else if (change < 0 && cartItem) {
+    if (cartItem.quantity > 1) {
+      cartItem.quantity -= 1;
+    } else {
+      cart = cart.filter((item) => item.id !== itemId);
+    }
+    updateCartUI();
+    if (menuItem) {
+      showToast(`Removido: 1x ${menuItem.name}`);
     }
   }
 
-  updateCartUI();
+  // Atualiza o contador visual no card
+  cartItem = cart.find((item) => item.id === itemId);
+  const qtyElement = document.getElementById(`qty-${itemId}`);
+  if (qtyElement) {
+    qtyElement.textContent = cartItem ? cartItem.quantity : 0;
+  }
 }
 
 function updateCartUI() {
@@ -346,4 +367,18 @@ function sendWhatsApp() {
   const encodedMessage = encodeURIComponent(message);
   const phone = "5522999998888";
   window.open(`https://wa.me/${phone}?text=${encodedMessage}`, "_blank");
+}
+
+// Função para exibir o aviso flutuante (Toast)
+function showToast(message) {
+  const toast = document.getElementById("toast-notification");
+  if (!toast) return;
+
+  toast.innerHTML = `<i class="fa-solid fa-bag-shopping" style="color: #e5a73c;"></i> ${message}`;
+  toast.classList.add("show");
+
+  clearTimeout(window.toastTimeout);
+  window.toastTimeout = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2500);
 }
