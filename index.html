@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fogão & Afeto | Comida Caseira</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- CSS Customizado -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="logo">
+        <i class="fa-solid fa-utensils"></i>
+        <span>Fogão & Afeto</span>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="#home">Início</a>
+        <a href="#cardapio">Cardápio</a>
+        <a href="#sobre">Sobre Nós</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <button class="cart-btn" id="open-cart-btn">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO SECTION (Com a Vovó SVG sem fundo) -->
+  <section id="home" class="hero">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <span class="badge">O Verdadeiro Tempero de Casa</span>
+        <h1>Pratos Feitos com Carinho e Ingredientes Frescos</h1>
+        <p>Aquele sabor inconfundível de comida caseira, quentinha e preparada na hora para alimentar a sua energia diária!</p>
+        <a href="#cardapio" class="btn btn-primary">Ver Cardápio Completo</a>
+      </div>
+      <div class="hero-image">
+        <svg viewBox="0 0 400 420" class="vovo-svg" xmlns="http://www.w3.org/2000/svg">
+          <!-- Vapores / Fumacinha com corações -->
+          <path d="M 160 110 Q 150 80 165 50 Q 180 20 165 0" fill="none" stroke="#E63946" stroke-width="4" stroke-linecap="round" opacity="0.6" />
+          <path d="M 200 100 Q 215 70 200 40 Q 185 10 200 -10" fill="none" stroke="#E63946" stroke-width="4" stroke-linecap="round" opacity="0.7" />
+          <path d="M 240 110 Q 230 80 245 50" fill="none" stroke="#E63946" stroke-width="4" stroke-linecap="round" opacity="0.5" />
+          <path d="M 190 25 C 185 15, 175 20, 185 30 C 195 40, 205 25, 190 25 Z" fill="#E63946" opacity="0.8" />
+
+          <!-- Cabelo Coque -->
+          <circle cx="200" cy="100" r="32" fill="#D3D3D3" />
+          <circle cx="200" cy="135" r="50" fill="#E0E0E0" />
+
+          <!-- Rosto -->
+          <circle cx="200" cy="145" r="40" fill="#FCD5CE" />
+
+          <!-- Óculos e Olhos -->
+          <circle cx="185" cy="145" r="12" fill="none" stroke="#333" stroke-width="3" />
+          <circle cx="215" cy="145" r="12" fill="none" stroke="#333" stroke-width="3" />
+          <line x1="197" y1="145" x2="203" y2="145" stroke="#333" stroke-width="3" />
+          <path d="M 180 145 A 5 5 0 0 1 190 145" fill="none" stroke="#333" stroke-width="2" />
+          <path d="M 210 145 A 5 5 0 0 1 220 145" fill="none" stroke="#333" stroke-width="2" />
+
+          <!-- Sorriso e Bochechas -->
+          <path d="M 190 165 Q 200 175 210 165" fill="none" stroke="#D32F2F" stroke-width="3" stroke-linecap="round" />
+          <circle cx="175" cy="155" r="6" fill="#FFB5A7" opacity="0.6" />
+          <circle cx="225" cy="155" r="6" fill="#FFB5A7" opacity="0.6" />
+
+          <!-- Roupa / Vestido -->
+          <path d="M 140 250 C 140 180, 260 180, 260 250 L 280 380 L 120 380 Z" fill="#4A90E2" />
+          <path d="M 170 185 C 180 210, 220 210, 230 185 Z" fill="#FFF" />
+
+          <!-- Avental -->
+          <path d="M 160 220 L 240 220 L 250 380 L 150 380 Z" fill="#FFFFFF" />
+          <path d="M 160 220 L 240 220 L 240 230 L 160 230 Z" fill="#E63946" />
+
+          <!-- Braços segurando a panela -->
+          <path d="M 135 210 Q 110 250 155 260" fill="none" stroke="#4A90E2" stroke-width="22" stroke-linecap="round" />
+          <path d="M 265 210 Q 290 250 245 260" fill="none" stroke="#4A90E2" stroke-width="22" stroke-linecap="round" />
+          <circle cx="155" cy="260" r="10" fill="#FCD5CE" />
+          <circle cx="245" cy="260" r="10" fill="#FCD5CE" />
+
+          <!-- Panela de Comida -->
+          <ellipse cx="200" cy="260" rx="55" ry="18" fill="#8D6E63" />
+          <path d="M 145 260 C 145 300, 255 300, 255 260 Z" fill="#D7CCC8" />
+          <path d="M 145 260 C 130 260, 130 270, 145 270" fill="none" stroke="#5D4037" stroke-width="5" />
+          <path d="M 255 260 C 270 260, 270 270, 255 270" fill="none" stroke="#5D4037" stroke-width="5" />
+          <ellipse cx="200" cy="258" rx="48" ry="12" fill="#E63946" />
+          <circle cx="180" cy="258" r="4" fill="#FFB74D" />
+          <circle cx="200" cy="261" r="5" fill="#81C784" />
+          <circle cx="215" cy="256" r="4" fill="#FFB74D" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO DE CARDÁPIO -->
+  <section id="cardapio" class="menu-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Nosso Cardápio</h2>
+        <p>Escolha o seu prato preferido e monte o seu pedido!</p>
+      </div>
+
+      <!-- Filtros de Categoria -->
+      <div class="category-filters">
+        <button class="filter-btn active" data-category="todos">Todos</button>
+        <button class="filter-btn" data-category="pfs">Pratos Feitos (PFs)</button>
+        <button class="filter-btn" data-category="bebidas">Bebidas</button>
+        <button class="filter-btn" data-category="sobremesas">Sobremesas</button>
+      </div>
+
+      <!-- Grid de Pratos (Renderizado via JS) -->
+      <div class="menu-grid" id="menu-grid"></div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO SOBRE NÓS (Com as Silhuetas da Equipe) -->
+  <section id="sobre" class="about-section">
+    <div class="container about-container">
+      <div class="about-image">
+        <svg viewBox="0 0 500 300" class="team-silhouettes" xmlns="http://www.w3.org/2000/svg">
+          <g fill="#2B2D42">
+            <!-- 1. Chef de Cozinha -->
+            <path d="M 85 100 C 70 80, 70 50, 95 45 C 110 35, 130 40, 135 50 C 145 40, 165 50, 160 70 C 170 80, 160 100, 145 100 Z" />
+            <rect x="95" y="95" width="50" height="20" rx="3" />
+            <circle cx="120" cy="130" r="22" />
+            <path d="M 85 270 L 90 170 C 90 150, 150 150, 150 170 L 155 270 Z" />
+            <path d="M 85 180 Q 60 210 75 230" stroke="#2B2D42" stroke-width="12" stroke-linecap="round" />
+
+            <!-- 2. Garçom com Bandeja -->
+            <circle cx="250" cy="110" r="22" />
+            <path d="M 215 270 L 220 155 C 220 140, 280 140, 280 155 L 285 270 Z" />
+            <path d="M 270 165 L 300 185 L 310 160" fill="none" stroke="#2B2D42" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+            <rect x="285" y="153" width="50" height="6" rx="2" />
+            <path d="M 292 153 A 18 18 0 0 1 328 153 Z" />
+            <circle cx="310" cy="132" r="3" />
+
+            <!-- 3. Moça no Caixa -->
+            <circle cx="380" cy="120" r="20" />
+            <path d="M 360 110 C 350 140, 365 160, 365 160 C 375 140, 395 130, 395 110 Z" />
+            <path d="M 350 270 L 355 165 C 355 150, 405 150, 405 165 L 410 270 Z" />
+            <rect x="330" y="210" width="150" height="60" fill="#2B2D42" rx="4" />
+            <rect x="400" y="165" width="55" height="45" rx="3" />
+            <polygon points="410,165 445,165 450,185 405,185" />
+            <rect x="415" y="148" width="25" height="17" rx="2" />
+          </g>
+        </svg>
+      </div>
+      <div class="about-text">
+        <h2>Feito com Afeto desde o Primeiro Dia</h2>
+        <p>No <strong>Fogão & Afeto</strong>, acreditamos que uma boa refeição vai muito além de nutrir: ela reconforta a alma. Nossos pratos são preparados diariamente com grãos selecionados, carnes suculentas e aquele tempero de família que você ama.</p>
+        <div class="features">
+          <div class="feature-item">
+            <i class="fa-solid fa-leaf"></i>
+            <span>Ingredientes Frescos</span>
+          </div>
+          <div class="feature-item">
+            <i class="fa-solid fa-fire"></i>
+            <span>Comida Quentinha</span>
+          </div>
+          <div class="feature-item">
+            <i class="fa-solid fa-truck-fast"></i>
+            <span>Entrega Rápida</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO DE CONTATO E HORÁRIOS -->
+  <section id="contato" class="info-section">
+    <div class="container info-grid">
+      <div class="info-card">
+        <i class="fa-solid fa-clock"></i>
+        <h3>Horário de Funcionamento</h3>
+        <p>Segunda a Sábado: 11h00 às 15h00</p>
+        <p>Domingos: 11h30 às 15h30</p>
+      </div>
+      <div class="info-card">
+        <i class="fa-solid fa-location-dot"></i>
+        <h3>Onde Estamos</h3>
+        <p>Rua das Marmitas, 123 - Centro</p>
+        <p>Sua Cidade - RJ</p>
+      </div>
+      <div class="info-card">
+        <i class="fa-solid fa-phone"></i>
+        <h3>Peça Pelo Telefone</h3>
+        <p>(22) 99999-8888</p>
+        <p>contato@fogaoeafeto.com.br</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Fogão & Afeto - Todos os direitos reservados. Projeto Fictício.</p>
+    </div>
+  </footer>
+
+  <!-- MODAL DO CARRINHO DE COMPRAS -->
+  <div class="cart-modal" id="cart-modal">
+    <div class="cart-modal-content">
+      <div class="cart-header">
+        <h3>Seu Pedido</h3>
+        <button class="close-btn" id="close-cart-btn">&times;</button>
+      </div>
+
+      <div class="cart-items" id="cart-items">
+        <!-- Itens do carrinho aparecem aqui dinamicamente -->
+      </div>
+
+      <div class="cart-footer">
+        <div class="cart-summary">
+          <div class="summary-line">
+            <span>Subtotal:</span>
+            <span id="subtotal-val">R$ 0,00</span>
+          </div>
+          <div class="summary-line">
+            <span>Taxa de Entrega:</span>
+            <span>R$ 5,00</span>
+          </div>
+          <div class="summary-line total">
+            <span>Total:</span>
+            <span id="total-val">R$ 5,00</span>
+          </div>
+        </div>
+
+        <button class="btn btn-checkout" id="checkout-btn">
+          <i class="fa-brands fa-whatsapp"></i> Finalizar Pedido no WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
