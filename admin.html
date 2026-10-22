@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -48,6 +48,22 @@
       color: var(--primary-color);
       font-size: 2rem;
       margin-bottom: 8px;
+    }
+
+    /* Caixa de aviso de demo */
+    .demo-info-box {
+      background-color: #e3f2fd;
+      border: 1px solid #90caf9;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 20px;
+      text-align: left;
+      font-size: 0.85rem;
+      color: #0d47a1;
+    }
+
+    .demo-info-box strong {
+      color: #1565c0;
     }
 
     .admin-header-nav {
@@ -183,6 +199,26 @@
       background-color: var(--primary-hover);
     }
 
+    /* Botão de Reset de Fábrica */
+    .btn-reset-factory {
+      background-color: #f59e0b;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background-color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-reset-factory:hover {
+      background-color: #d97706;
+    }
+
     /* ESTILIZAÇÃO DA LISTA DE REMOÇÃO DE PRATOS */
     .admin-items-list {
       max-height: 500px;
@@ -288,10 +324,17 @@
     <div class="login-box">
       <span class="admin-badge"><i class="fa-solid fa-lock"></i> Área Restrita</span>
       <h2>Fogão & Afeto</h2>
-      <p style="color: var(--text-light); margin-bottom: 25px; font-size: 0.95rem;">Digite suas credenciais de proprietário para acessar o painel.</p>
+      <p style="color: var(--text-light); margin-bottom: 15px; font-size: 0.95rem;">Digite suas credenciais para acessar o painel.</p>
+
+      <!-- Caixa explicativa para Recrutadores -->
+      <div class="demo-info-box">
+        <i class="fa-solid fa-circle-info"></i> <strong>Modo Demonstração:</strong><br>
+        Usuário: <code>admin@demo.com</code><br>
+        Senha: <code>demo123</code>
+      </div>
 
       <div class="form-group">
-        <input type="text" id="login-user" placeholder="Usuário">
+        <input type="text" id="login-user" placeholder="E-mail ou Usuário">
       </div>
       <div class="form-group">
         <input type="password" id="login-pass" placeholder="Senha">
@@ -313,6 +356,7 @@
           <span>Fogão & Afeto <small style="font-size: 0.75rem; color: var(--text-light);">(Painel Admin)</small></span>
         </div>
         <div style="display: flex; gap: 10px; align-items: center;">
+          <button class="btn-reset-factory" onclick="resetarDadosFabrica()" title="Restaura o cardápio original"><i class="fa-solid fa-rotate-right"></i> Reset de Fábrica</button>
           <a href="index.html" class="btn-logout" style="text-decoration: none;" target="_blank"><i class="fa-solid fa-eye"></i> Ver Site</a>
           <button class="btn-logout" onclick="fazerLogout()"><i class="fa-solid fa-power-off"></i> Sair</button>
         </div>
@@ -383,14 +427,15 @@
     </div>
   </div>
 
+  <script src="script.js"></script>
   <script>
-    const ADMIN_USER = "admin";
-    const ADMIN_PASS = "fogao123";
+    const ADMIN_USER = "admin@demo.com";
+    const ADMIN_PASS = "demo123";
     let imagemBase64 = "";
 
     function fazerLogin() {
-      const u = document.getElementById("login-user").value;
-      const p = document.getElementById("login-pass").value;
+      const u = document.getElementById("login-user").value.trim();
+      const p = document.getElementById("login-pass").value.trim();
       const err = document.getElementById("login-error");
 
       if (u === ADMIN_USER && p === ADMIN_PASS) {
@@ -398,7 +443,7 @@
         document.getElementById("admin-panel").style.display = "block";
         renderizarListaAdmin();
       } else {
-        err.textContent = "Usuário ou senha incorretos!";
+        err.textContent = "Credenciais incorretas! Use admin@demo.com / demo123";
       }
     }
 
@@ -435,11 +480,7 @@
 
       const finalImage = imagemBase64 || "https://placehold.co/400x300/e2e8f0/1e293b?text=Foto+do+Prato";
 
-      // Pega os itens salvos ou força a carga dos itens originais se ainda não existirem
-      let menuItems = JSON.parse(localStorage.getItem("fogaoAfeto_menu"));
-      if (!menuItems || menuItems.length === 0) {
-        menuItems = typeof defaultMenuItems !== 'undefined' ? defaultMenuItems : [];
-      }
+      let menuItems = getMenuItems();
 
       const novoPrato = {
         id: Date.now(),
@@ -470,16 +511,26 @@
     function removerPrato(id) {
       if (!confirm("Tem certeza que deseja retirar este prato do site?")) return;
 
-      let menuItems = JSON.parse(localStorage.getItem("fogaoAfeto_menu")) || [];
+      let menuItems = getMenuItems();
       menuItems = menuItems.filter(item => item.id !== id);
 
       localStorage.setItem("fogaoAfeto_menu", JSON.stringify(menuItems));
       renderizarListaAdmin();
     }
 
+    function resetarDadosFabrica() {
+      if (confirm("Deseja restaurar o cardápio original de fábrica? Quaisquer alterações feitas serão apagadas.")) {
+        if (typeof defaultMenuItems !== 'undefined') {
+          localStorage.setItem("fogaoAfeto_menu", JSON.stringify(defaultMenuItems));
+          renderizarListaAdmin();
+          alert("Cardápio restaurado com sucesso!");
+        }
+      }
+    }
+
     function renderizarListaAdmin() {
       const listContainer = document.getElementById("admin-items-list");
-      let menuItems = JSON.parse(localStorage.getItem("fogaoAfeto_menu"));
+      let menuItems = getMenuItems();
 
       if (!menuItems || menuItems.length === 0) {
         listContainer.innerHTML = "<p style='text-align:center; color:#888;'>Nenhum prato cadastrado.</p>";
