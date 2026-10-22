@@ -247,7 +247,7 @@ const defaultMenuItems = [
   },
 ];
 
-// Garante o carregamento dos itens base sem perder os pratos originais
+// Garante o carregamento dos itens salvos ou utiliza os padrões
 function getMenuItems() {
   const stored = localStorage.getItem("fogaoAfeto_menu");
   if (!stored) {
